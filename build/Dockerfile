@@ -7,5 +7,5 @@ WORKDIR /root
 EXPOSE 10022   2181               2888                 3888                 9820                  9870                   8485                     8480                      9866              9900             9099
 
 # hbase
-RUN wget http://archive.apache.org/dist/hbase/2.2.2/hbase-2.2.2-client-bin.tar.gz; tar xvf hbase-2.2.2-client-bin.tar.gz; mv /root/hbase-2.2.2 /root/hbase; rm hbase-2.2.2-client-bin.tar.gz
+RUN wget http://archive.apache.org/dist/hbase/2.2.2/hbase-2.2.2-bin.tar.gz; tar xvf hbase-2.2.2-client-bin.tar.gz; mv /root/hbase-2.2.2 /root/hbase; rm hbase-2.2.2-client-bin.tar.gz
 ENV HBASE_HOME=/root/hbase

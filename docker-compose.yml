@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  master-hadoop:
+    restart: always
+    image: n454149301/centos-openssh-openjdk-hadoop:3.2.1
+    ports:
+        # ssh port
+        - '10022:10022'
+        # zookeeper client
+        - '2181:2181'
+        # zookeeper follower
+        - '2888:2888'
+        # zookeeper election
+        - '3888:3888'
+        # namenode rpc server
+        - '9820:9820'
+        # namenode http server
+        - '9870:9870'
+        # journalnode rpc server
+        - '8485:8485'
+        # journalnode http server
+        - '8480:8480'
+        # datanode server
+        - '9866:9866'
+        # webhdfs server
+        - '9900:9900'
+    volumes:
+      - ./ssh:/root/.ssh
+      - ./zookeeper/data:/root/zookeeper/data
+      - ./zookeeper/logs:/root/zookeeper/logs
+      - ./hadoop/dfs:/root/hadoop/dfs
+      - ./hadoop/logs:/root/hadoop/logs
+      - ./hosts:/etc/ansible/hosts
+      - ./start.yml:/root/start.yml
+      - ./zoo.cfg.j2:/root/zoo.cfg.j2
+    command: 
+      - 'ansible-playbook'
+      - "--scp-extra-args '\\-P10022'"
+      - "--ssh-extra-args '\\-p10022'"
+      - /root/start.yml
